@@ -2,8 +2,8 @@ version: "3.7"
 
 services:
     # image project
-    app:
-        container_name: especializati-laravel-9
+    micro_01:
+        container_name: micro_01
         build:
             context: .
             dockerfile: Dockerfile
@@ -15,7 +15,7 @@ services:
         depends_on: 
             - redis
         networks: 
-            - microservices
+            - micro_01
     
     # nginx
     nginx:
@@ -28,7 +28,7 @@ services:
             - ./:/var/www
             - ./docker/nginx/:/etc/nginx/conf.d/
         networks: 
-            - microservices
+            - micro_01
 
     # db mysql
     mysql:
@@ -45,7 +45,7 @@ services:
         ports: 
             - "3388:3306"
         networks: 
-            - microservices
+            - micro_01
 
     # queue
     queue:
@@ -59,15 +59,15 @@ services:
             - redis
             - app
         networks: 
-            - microservices
+            - micro_01
 
     # redis
     redis:
         container_name: especializati-redis
         image: redis:latest
         networks: 
-            - microservices
+            - micro_01
 
 networks: 
-    microservices:
+    micro_01:
         driver: bridge
