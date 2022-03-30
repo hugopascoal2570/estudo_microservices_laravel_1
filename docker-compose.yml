@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
     # image project
-    micro_01:
+    app:
         container_name: micro_01
         build:
             context: .
