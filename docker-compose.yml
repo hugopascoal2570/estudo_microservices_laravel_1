@@ -19,7 +19,7 @@ services:
     
     # nginx
     nginx:
-        container_name: especializati-nginx
+        container_name: micro_01_nginx
         image: nginx:alpine
         restart: unless-stopped
         ports: 
@@ -32,7 +32,7 @@ services:
 
     # db mysql
     mysql:
-        container_name: especializati-mysql
+        container_name: micro_01_mysql
         image: mysql:5.7.22
         restart: unless-stopped
         environment: 
@@ -49,7 +49,7 @@ services:
 
     # queue
     queue:
-        container_name: especializati-queue
+        container_name: micro_01_queue
         image: especializati/laravel9-app
         restart: unless-stopped
         command: "php artisan queue:work"
@@ -63,7 +63,7 @@ services:
 
     # redis
     redis:
-        container_name: especializati-redis
+        container_name: micro_01_redis
         image: redis:latest
         networks: 
             - micro_01
