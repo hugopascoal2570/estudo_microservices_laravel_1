@@ -63,7 +63,6 @@ services:
 
     # redis
     redis:
-        container_name: micro_01_redis
         image: redis:latest
         networks: 
             - micro_01
