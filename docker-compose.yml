@@ -12,22 +12,22 @@ services:
         working_dir: /var/www/
         volumes:
             - ./:/var/www
-        depends_on: 
+        depends_on:
             - redis
-        networks: 
+        networks:
             - micro_01
-    
+
     # nginx
     nginx:
         container_name: micro_01_nginx
         image: nginx:alpine
         restart: unless-stopped
-        ports: 
+        ports:
             - "8989:80"
-        volumes: 
+        volumes:
             - ./:/var/www
             - ./docker/nginx/:/etc/nginx/conf.d/
-        networks: 
+        networks:
             - micro_01
 
     # db mysql
@@ -35,16 +35,16 @@ services:
         container_name: micro_01_mysql
         image: mysql:5.7.22
         restart: unless-stopped
-        environment: 
+        environment:
             MYSQL_DATABASE: ${DB_DATABASE}
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
             MYSQL_PASSWORD: ${DB_PASSWORD}
             MYSQL_USER: ${DB_USERNAME}
-        volumes: 
+        volumes:
             - ./.docker/mysql/dbdata:/var/lib/mysql
-        ports: 
-            - "3388:3306"
-        networks: 
+        ports:
+            - "3372:3306"
+        networks:
             - micro_01
 
     # queue
@@ -53,20 +53,20 @@ services:
         image: especializati/laravel9-app
         restart: unless-stopped
         command: "php artisan queue:work"
-        volumes: 
+        volumes:
             - ./:/var/www
-        depends_on: 
+        depends_on:
             - redis
             - app
-        networks: 
+        networks:
             - micro_01
 
     # redis
     redis:
         image: redis:latest
-        networks: 
+        networks:
             - micro_01
 
-networks: 
+networks:
     micro_01:
         driver: bridge
